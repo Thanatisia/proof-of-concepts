@@ -1,0 +1,7 @@
+# Files and Folders to ignore
+
+## Files
+### Logs and DevOps
+logs/
+
+## Folders
