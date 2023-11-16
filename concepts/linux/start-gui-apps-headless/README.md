@@ -1,15 +1,11 @@
-# Starting VNC server with GUI applications as a background process/daemon from the tty
+# Starting GUI applications as a background process/daemon from the tty
 
 ## Information
 ### Description
 ```
 within the tty - start up a GUI application, lets say firefox, in the background as a daemon/process using DISPLAY=:1
 
-then afterwhich, starting up either a VNC server, or a Websocket server (i.e. NoVNC) that will point to that :1 display 
-so that when I access the web/browser-based vnc client, it will go straight into firefox
-so yeah, like as a background process such that when I run it, I will remain in the tty instead of going into the GUI application
-
-the idea is that with this, I can startup as many GUI applications as I need/want as individual "VNC servers" and access them through the web browser
+This will startup the GUI in a Xorg Display Server non-graphical (virtual) framebuffer where the rendering will be performed in the background
 ```
 
 ## Setup
@@ -32,22 +28,14 @@ the idea is that with this, I can startup as many GUI applications as I need/wan
     + [Simple and Functional X Virtual Framebuffer runner script](implementations/start_xvfb.sh)
 
 ### Usage
-- Startup X Virtual Framebuffer (Xvfb) with VNC Server and GUI Applications
+- Basic Xorg Display Server headless startup
     - Startup Virtual Framebuffer
         ```console
-        Xvfb :[display-number] -screen [screen] [resolution ([width]x[height]x[color-depth])] &
+        Xvfb :[display-number] &
         ```
     - Export DISPLAY environment variable to the display number
         ```console
         export DISPLAY=:[display-number]
-        ```
-    - Start VNC server
-        ```console
-        x11vnc -display :[display-number] -rfbport [custom-vnc-server-port] -nopw -xkb -forever -bg
-        ```
-    - Start Websocket server
-        ```console
-        websockify -D --web=[web-vnc-client] [websocket-server-port] [vnc-server-host]:[vnc-server-port]
         ```
     - Post-Setup
         - Ideas
